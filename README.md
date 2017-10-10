@@ -1,4 +1,4 @@
-__Sash is a Secure Shell wrapper which uses `aws-cli` to find an instance's IP and PEM file by its name__
+__Sash is a Secure Shell wrapper which uses `aws-cli` to find an instance's IP by its name__
 sash
 ====
 
@@ -7,7 +7,7 @@ Prerequisites
 
 1. Install [AWS Unified CLI](https://github.com/aws/aws-cli) (make sure you have installed version 1.3.8 or later)
 2. Make sure you have `AWS_ACCESS_KEY`, `AWS_SECRET_KEY`, `AWS_DEFAULT_REGION` and `SASH_DEFAULT_USER` with `SASH_PEM_FILE_PATH` set in your environment
-3. Put all your PEM files under `~/.aws`
+
 
 Installation
 ------------
