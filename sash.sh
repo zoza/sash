@@ -45,10 +45,10 @@ function sash {
     fi
   fi
   local instances_data
+  local pem_file_path=${SASH_PEM_FILE_PATH}
   local default_user=${SASH_DEFAULT_USER:-ubuntu}
   read -a instances_data <<< ${instance}
 
-  eval $(_get_data pems 0 ${instances_data[@]})
   eval $(_get_data ips 1 ${instances_data[@]})
   eval $(_get_data hosts 2 ${instances_data[@]})
   eval $(_get_data resource_ids 3 ${instances_data[@]})
@@ -121,7 +121,7 @@ function sash {
         src=${users[$idx+i]}@${ips[$idx+i]}:${1}
         target=${2:-.}
       fi
-      (set -x; scp -i ~/.aws/${pems[$idx+i]}.pem $src $target)
+      (set -x; scp -i ${pem_file_path} $src $target)
     done
     return 0
   fi
@@ -138,7 +138,7 @@ function sash {
     done
 
     if [[ `uname` == 'Darwin' ]]; then
-      (set -x; tmux-cssh -c ~/.aws/$instances_data.pem $* ${ips_with_user[@]})
+      (set -x; tmux-cssh -c ${pem_file_path} $* ${ips_with_user[@]})
     else
       local ssh_args
       if [[ $1 == '--ssh_args' ]]; then
@@ -146,7 +146,7 @@ function sash {
         ssh_args=" $1"
         shift
       fi
-      (set -x; cssh -o "-i ~/.aws/$instances_data.pem$ssh_args" $* ${ips_with_user[@]})
+      (set -x; cssh -o "-i ${pem_file_path}$ssh_args" $* ${ips_with_user[@]})
     fi
     return 0
   fi
@@ -165,7 +165,6 @@ function sash {
     shift
   fi
 
-  local pem=${pems[$idx-1]}
   local ip=${ips[$idx-1]}
   host=`echo ${hosts[$idx-1]} | cut -d \' -f 2`
 
@@ -174,7 +173,7 @@ function sash {
     echo "(out of ${number_of_instances} instances)"
   fi
   
-  (set -x; ssh -i ~/.aws/$pem.pem ${users[$idx-1]}@$ip $*)
+  (set -x; ssh -i ${pem_file_path} ${users[$idx-1]}@$ip $*)
 }
 
 function _get_data {
