@@ -8,9 +8,11 @@ Prerequisites
 1. Install [AWS Unified CLI](https://github.com/aws/aws-cli) (make sure you have installed version 1.3.8 or later)
 2. Make sure you have `AWS_ACCESS_KEY`, `AWS_SECRET_KEY`, `AWS_DEFAULT_REGION` set in your environment.
 3. Also add
-`export SASH_DEFAULT_USER=anatoly.zozlinsky`
-`export SASH_PEM_FILE_PATH=/home/user/.ssh/private_rsa.key`
-`export SASH_SSH_PORT=7711`
+
+        export SASH_DEFAULT_USER=anatoly.zozlinsky
+        export SASH_PEM_FILE_PATH=/home/user/.ssh/private_rsa.key
+        export SASH_SSH_PORT=7711
+
 to your environment
 
 
